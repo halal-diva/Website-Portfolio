@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Actually Happens When You Type a Website Address — Halimah Yusuf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #14171A;
+    --ink: #F5F3EE;
+    --ink-dim: #9CA3AA;
+    --accent: #C4622D;
+    --accent-text: #E08350;
+    --line: rgba(245,243,238,0.1);
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+  }
+  a { color: var(--accent-text); }
+  .top {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 0 24px;
+  }
+  .top a.back {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  .top a.back:hover { color: var(--accent-text); }
+  article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 120px 24px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 46px);
+    line-height: 1.15;
+    margin-bottom: 40px;
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 48px 0 16px 0;
+  }
+  p { color: var(--ink-dim); font-size: 16px; margin-bottom: 16px; }
+  strong { color: var(--ink); font-weight: 600; }
+  ol, ul { color: var(--ink-dim); font-size: 16px; padding-left: 22px; margin-bottom: 16px; }
+  li { margin-bottom: 12px; }
+  li strong { color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="top"><a class="back" href="../index.html#journal">← Journal</a></div>
+  <article>
+    <div class="eyebrow">Journal</div>
+    <h1>What Actually Happens When You Type a Website Address</h1>
+
+    <p>You type a web address into your browser, hit enter, and a page appears half a second later. It feels instant and a little bit magic. It isn't magic — it's a lookup system called DNS, and once you see how it works, you'll never look at a URL the same way again.</p>
+
+    <h2>The problem DNS solves</h2>
+    <p>Computers don't actually think in names like <strong>netlify.app</strong>. They think in numbers — specifically, IP addresses like <strong>104.198.14.52</strong>. That number tells your computer exactly which server on the internet to talk to.</p>
+    <p>Nobody wants to memorize strings of numbers for every site they visit. So the internet needed a phonebook: something that takes the name you type and hands back the number your computer actually needs. That phonebook is DNS — the Domain Name System.</p>
+
+    <h2>The four things involved</h2>
+    <p>Before walking through the sequence, it helps to know the four players by name.</p>
+    <p><strong>Resolver</strong> — think of this as the operator you call when you don't know a number. It's usually run by your internet provider or a public service like Google. Its whole job is to go find the answer and hand it back to you.</p>
+    <p><strong>Nameserver</strong> — the actual source of truth for a domain. When someone buys a domain and points it at a hosting company, that hosting company runs a nameserver that knows exactly where that domain should send people.</p>
+    <p><strong>Record</strong> — a single entry in that nameserver's phonebook. There are several types, but two come up constantly:</p>
+    <ul>
+      <li><strong>A record</strong> — maps a name directly to an IP address ("this name = this number").</li>
+      <li><strong>CNAME record</strong> — maps a name to <em>another name</em> instead of a number ("this name = go look up that other name instead"). This is the one hosting platforms love, because it lets them move your site between servers without you ever having to touch anything.</li>
+    </ul>
+    <p><strong>Response</strong> — the answer that eventually makes its way back to your browser, telling it exactly where to connect.</p>
+
+    <h2>The sequence, step by step</h2>
+    <p>Say someone types <strong>halimah-yusuf.com</strong> into their browser.</p>
+    <ol>
+      <li><strong>The browser asks the resolver.</strong> Your device doesn't know the answer, so it asks a resolver, "What's the address for this name?"</li>
+      <li><strong>The resolver checks if it already knows.</strong> Resolvers cache answers for a while so they're not looking everything up from scratch constantly. If it already has a fresh answer sitting in memory, it hands that back immediately and the process ends here.</li>
+      <li><strong>If not, the resolver goes looking.</strong> It works its way through the DNS hierarchy — starting broad (what handles .com addresses?) and narrowing down until it reaches the specific nameserver responsible for the domain.</li>
+      <li><strong>The nameserver checks its records.</strong> This is where the CNAME record matters. If the domain has a CNAME pointing to, say, a Netlify address, the nameserver doesn't hand back a number — it hands back that other name instead.</li>
+      <li><strong>The resolver follows the trail.</strong> Since it got a name and not a number, it now has to look that name up too, which eventually resolves to the hosting provider's actual IP address.</li>
+      <li><strong>The response comes back.</strong> The resolver hands the final IP address back to the browser.</li>
+      <li><strong>The browser connects.</strong> It opens a connection to that IP address, requests the page, and the site loads.</li>
+    </ol>
+    <p>All of this — usually several lookups deep — tends to happen in under a second, often much less thanks to caching.</p>
+
+    <h2>Why CNAME records matter for a site like this</h2>
+    <p>If a portfolio is hosted on Netlify but you want it to answer to your own domain name instead of the auto-generated one, a CNAME record is the connector. You'd go to wherever you bought the domain, add a CNAME record pointing your domain at Netlify's address, and from then on, anyone typing your domain gets routed through to the site — without ever knowing Netlify is involved at all.</p>
+    <p>It's the same principle as call forwarding: people dial the number they know, and it quietly connects them to wherever the call actually needs to go.</p>
+  </article>
+</body>
+</html>
