@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halimah Yusuf — UX/UI Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #14171A;
+    --card: #1B1E21;
+    --ink: #F5F3EE;
+    --ink-dim: #9CA3AA;
+    --accent: #C4622D;
+    --accent-text: #E08350;
+    --line: rgba(245,243,238,0.09);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .diagonal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  header.nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .wordmark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .wordmark span { color: var(--accent-text); }
+
+  nav.links {
+    display: flex;
+    gap: 36px;
+  }
+
+  nav.links a {
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--ink-dim);
+    transition: color 0.15s ease;
+  }
+
+  nav.links a:hover { color: var(--ink); }
+
+  @media (max-width: 720px) {
+    nav.links { display: none; }
+  }
+
+  .float-cta {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 10;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.25;
+    text-decoration: none;
+    box-shadow: 0 0 0 0 rgba(196,98,45,0.5);
+    animation: pulse 3.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(196,98,45,0.35); }
+    50% { box-shadow: 0 0 0 14px rgba(196,98,45,0); }
+  }
+
+  @media (max-width: 720px) {
+    .float-cta { width: 76px; height: 76px; font-size: 11px; top: auto; bottom: 24px; right: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .float-cta { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 60px 32px 120px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-text);
+    margin-bottom: 28px;
+  }
+
+  .hero .eyebrow::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(48px, 9vw, 108px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+  }
+
+  .hero h1 .accent { color: var(--accent-text); }
+
+  .hero .sub-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .hero .tags {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero .tags span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--ink-dim);
+  }
+
+  .hero .tags span::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .hero .subline {
+    max-width: 380px;
+    font-size: 16px;
+    color: var(--ink-dim);
+  }
+
+  .hero .subline strong { color: var(--ink); font-weight: 500; }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-head {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 56px;
+  }
+
+  .section-head .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .section-head span.label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    text-transform: lowercase;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 820px) {
+    .work-grid { grid-template-columns: 1fr; }
+  }
+
+  .work-card {
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .work-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+  .work-card .visual {
+    height: 280px;
+    background: linear-gradient(135deg, #C4622D 0%, #7A3B18 100%);
+    position: relative;
+  }
+
+  .work-card.placeholder .visual {
+    background: repeating-linear-gradient(135deg, #1B1E21, #1B1E21 12px, #202427 12px, #202427 24px);
+  }
+
+  .work-card .visual .tag-pill {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(20,23,26,0.55);
+    backdrop-filter: blur(6px);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .work-card .body {
+    padding: 28px 28px 32px 28px;
+  }
+
+  .work-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+
+  .work-card p {
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+
+  .work-card .kicker {
+    font-size: 13px;
+    color: var(--accent-text);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .expertise-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .expertise-lines .line {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(24px, 4vw, 42px);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-dim);
+    transition: color 0.15s ease, padding-left 0.15s ease;
+  }
+
+  .expertise-lines .line:hover {
+    color: var(--ink);
+    padding-left: 12px;
+  }
+
+  .expertise-lines .line strong {
+    color: var(--accent-text);
+    font-weight: 500;
+  }
+
+  .journal-intro {
+    max-width: 600px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(20px, 3vw, 28px);
+    line-height: 1.4;
+    margin-bottom: 56px;
+  }
+
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 820px) {
+    .journal-grid { grid-template-columns: 1fr; }
+  }
+
+  .journal-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .journal-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .journal-card .jc-top .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .journal-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .journal-card .read {
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  .journal-card.empty {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 14px;
+    border-style: dashed;
+  }
+
+  .contact-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.1;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+
+  .contact-head p {
+    max-width: 480px;
+    color: var(--ink-dim);
+    font-size: 16px;
+    margin-bottom: 56px;
+  }
+
+  .contact-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 820px) {
+    .contact-body { grid-template-columns: 1fr; }
+  }
+
+  form.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  form.contact-form label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  form.contact-form input,
+  form.contact-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  form.contact-form input:focus,
+  form.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  form.contact-form textarea { min-height: 120px; resize: vertical; }
+
+  form.contact-form button {
+    align-self: flex-start;
+    padding: 14px 32px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .contact-info .item .label {
+    font-size: 13px;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+
+  .contact-info .item a,
+  .contact-info .item span.val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .contact-info .item a:hover { color: var(--accent-text); }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 48px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  footer .fw {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  footer .fw span { color: var(--accent-text); }
+
+  footer .location {
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  footer .foot-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  footer .foot-links a {
+    font-size: 13px;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+
+  footer .foot-links a:hover { color: var(--accent-text); }
+
+  footer .copy {
+    font-size: 13px;
+    color: var(--ink-dim);
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <svg class="diagonal" viewBox="0 0 1440 3200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="0" x2="1440" y2="900" stroke="rgba(245,243,238,0.05)" stroke-width="1"/>
+    <line x1="200" y1="0" x2="1440" y2="1600" stroke="rgba(245,243,238,0.04)" stroke-width="1"/>
+  </svg>
+
+  <a class="float-cta" href="#contact">Get in<br>touch</a>
+
+  <header class="nav">
+    <a class="wordmark" href="#top">Halimah<span>.</span></a>
+    <nav class="links">
+      <a href="#work">work</a>
+      <a href="#expertise">expertise</a>
+      <a href="#journal">journal</a>
+      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top" style="border-top: none; padding-top: 20px;">
+    <div class="eyebrow">UX/UI Designer</div>
+    <h1>Making complex things feel <span class="accent">obvious</span>.</h1>
+    <div class="sub-row">
+      <div class="tags">
+        <span>wireframing</span>
+        <span>prototyping</span>
+        <span>design systems</span>
+      </div>
+      <p class="subline"><strong>I design digital products people can actually understand and trust</strong> — making complex systems legible to the people using them.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head"><span class="dot"></span><span class="label">featured work</span></div>
+    <div class="work-grid">
+      <a class="work-card" href="work/cadence.html">
+        <div class="visual">
+          <span class="tag-pill">case study</span>
+        </div>
+        <div class="body">
+          <div class="kicker">AI · scheduling · design systems</div>
+          <h3>Cadence — teaching an AI scheduling assistant to explain itself before it acts</h3>
+          <p>How I designed a recommendation-review screen where the reasoning is as visible as the suggestion.</p>
+        </div>
+      </a>
+      <a class="work-card placeholder" href="#journal">
+        <div class="visual">
+          <span class="tag-pill">coming soon</span>
+        </div>
+        <div class="body">
+          <div class="kicker">Next case study</div>
+          <h3>Currently in progress — check back soon</h3>
+          <p>In the meantime, read the latest from the journal below.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="expertise">
+    <div class="section-head"><span class="dot"></span><span class="label">expertise</span></div>
+    <div class="expertise-lines">
+      <div class="line">Wireframes &amp; <strong>prototypes</strong></div>
+      <div class="line">Design <strong>systems</strong> &amp; component libraries</div>
+      <div class="line">Brand identity &amp; <strong>visual design</strong></div>
+      <div class="line"><strong>User research</strong> &amp; usability testing</div>
+      <div class="line">Design rationale &amp; <strong>client communication</strong></div>
+    </div>
+  </section>
+
+  <section id="journal">
+    <div class="section-head"><span class="dot"></span><span class="label">journal</span></div>
+    <p class="journal-intro">Notes on how people use digital products, what makes systems legible, and what I'm learning as I build.</p>
+    <div class="journal-grid">
+      <a class="journal-card" href="journal/dns-walkthrough.html">
+        <div class="jc-top"><div class="dot"></div>
+          <h4>What actually happens when you type a website address</h4>
+        </div>
+        <div class="read">Read →</div>
+      </a>
+      <div class="journal-card empty">More posts coming soon</div>
+      <div class="journal-card empty">More posts coming soon</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-head">
+      <h2>Have a project in mind?</h2>
+      <p>Tell me what you're working on and I'll get back to you directly — no scheduling tool in between.</p>
+    </div>
+    <div class="contact-body">
+      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit">Send message</button>
+      </form>
+      <div class="contact-info">
+        <div class="item">
+          <div class="label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/halimah-yusuf/" target="_blank" rel="noopener">halimah-yusuf</a>
+        </div>
+        <div class="item">
+          <div class="label">GitHub</div>
+          <a href="https://github.com/halal-diva" target="_blank" rel="noopener">halal-diva</a>
+        </div>
+        <div class="item">
+          <div class="label">CV</div>
+          <a href="cv.pdf" target="_blank" rel="noopener">Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="fw">Halimah Yusuf<span>.</span></div>
+      <div class="location">Abuja, Nigeria</div>
+    </div>
+    <div class="foot-links">
+      <a href="https://www.linkedin.com/in/halimah-yusuf/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/halal-diva" target="_blank" rel="noopener">GitHub</a>
+      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+    <div class="copy">© 2026 Halimah Yusuf</div>
+  </footer>
+
+</body>
+</html>
