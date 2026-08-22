@@ -464,6 +464,21 @@
     margin-top: 8px;
   }
 
+  .form-status {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 4px;
+    min-height: 20px;
+  }
+
+  .form-status.error { color: #E4674C; }
+  .form-status.success { color: var(--accent-text); }
+
+  .contact-form input.invalid,
+  .contact-form textarea.invalid {
+    border-color: #E4674C;
+  }
+
   .contact-info {
     display: flex;
     flex-direction: column;
@@ -546,7 +561,7 @@
   <a class="float-cta" href="#contact">Get in<br>touch</a>
 
   <header class="nav">
-    <a class="wordmark" href="#top">Halimah Yusuf<span>.</span></a>
+    <a class="wordmark" href="#top">Halimah<span>.</span></a>
     <nav class="links">
       <a href="#work">work</a>
       <a href="#expertise">expertise</a>
@@ -626,21 +641,22 @@
       <p>Tell me what you're working on and I'll get back to you directly — no scheduling tool in between.</p>
     </div>
     <div class="contact-body">
-      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+      <form class="contact-form" name="contact" method="POST" data-netlify="true" id="contactForm" novalidate>
         <input type="hidden" name="form-name" value="contact">
         <div>
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
+          <input type="text" id="name" name="name">
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email">
         </div>
         <div>
           <label for="message">Message</label>
-          <textarea id="message" name="message" required></textarea>
+          <textarea id="message" name="message"></textarea>
         </div>
         <button type="submit">Send message</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
       <div class="contact-info">
         <div class="item">
@@ -671,6 +687,55 @@
     </div>
     <div class="copy">© 2026 Halimah Yusuf</div>
   </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      [form.name, form.email, form.message].forEach(f => f.classList.remove('invalid'));
+      status.textContent = '';
+      status.className = 'form-status';
+
+      if (!name || !email || !message) {
+        status.textContent = "Looks like something's missing — please fill in every field before sending.";
+        status.classList.add('error');
+        if (!name) form.name.classList.add('invalid');
+        if (!email) form.email.classList.add('invalid');
+        if (!message) form.message.classList.add('invalid');
+        return;
+      }
+
+      if (!emailPattern.test(email)) {
+        status.textContent = "That email doesn't look quite right — mind double-checking it?";
+        status.classList.add('error');
+        form.email.classList.add('invalid');
+        return;
+      }
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      })
+        .then(() => {
+          status.textContent = "Thanks — I'll be in touch soon.";
+          status.classList.add('success');
+          form.reset();
+        })
+        .catch(() => {
+          status.textContent = "Something went wrong sending that — please try again in a moment.";
+          status.classList.add('error');
+        });
+    });
+  </script>
 
 </body>
 </html>
