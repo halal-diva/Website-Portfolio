@@ -86,7 +86,7 @@
 
   nav.links a:hover { color: var(--ink); }
 
-  @media (max-width: 720px) {
+  @media (max-width: 820px) {
     nav.links { display: none; }
   }
 
@@ -118,13 +118,20 @@
     50% { box-shadow: 0 0 0 14px rgba(196,98,45,0); }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 820px) {
     .float-cta { width: 76px; height: 76px; font-size: 11px; top: auto; bottom: 24px; right: 24px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .float-cta { animation: none; }
     html { scroll-behavior: auto; }
+  }
+
+  .float-cta.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.85);
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .hero {
@@ -549,6 +556,11 @@
     border-top: 1px solid var(--line);
     margin-top: 4px;
   }
+
+  @media (max-width: 720px) {
+    section { padding: 64px 24px; }
+    .hero { padding: 40px 24px 72px 24px; }
+  }
 </style>
 </head>
 <body>
@@ -572,14 +584,14 @@
 
   <section class="hero" id="top" style="border-top: none; padding-top: 20px;">
     <div class="eyebrow">UX/UI Designer</div>
-    <h1>Making complex things feel <span class="accent">obvious</span>.</h1>
+    <h1>I design things that <span class="accent">explain themselves</span>.</h1>
     <div class="sub-row">
       <div class="tags">
         <span>wireframing</span>
         <span>prototyping</span>
         <span>design systems</span>
       </div>
-      <p class="subline"><strong>I design digital products people can actually understand and trust</strong> — making complex systems legible to the people using them.</p>
+      <p class="subline"><strong>UX/UI design for products people need to understand before they'll trust them.</strong></p>
     </div>
   </section>
 
@@ -630,7 +642,12 @@
         </div>
         <div class="read">Read →</div>
       </a>
-      <div class="journal-card empty">More posts coming soon</div>
+      <a class="journal-card" href="journal/how-my-contact-form-works.html">
+        <div class="jc-top"><div class="dot"></div>
+          <h4>Where a contact form submission actually goes</h4>
+        </div>
+        <div class="read">Read →</div>
+      </a>
       <div class="journal-card empty">More posts coming soon</div>
     </div>
   </section>
@@ -691,6 +708,17 @@
   <script>
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
+    const floatCta = document.querySelector('.float-cta');
+    const siteFooter = document.querySelector('footer');
+
+    if (floatCta && siteFooter && 'IntersectionObserver' in window) {
+      const footerObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          floatCta.classList.toggle('is-hidden', entry.isIntersecting);
+        });
+      }, { threshold: 0.05 });
+      footerObserver.observe(siteFooter);
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
