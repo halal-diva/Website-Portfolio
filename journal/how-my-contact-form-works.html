@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where a Contact Form Submission Actually Goes — Halimah Yusuf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #14171A;
+    --card: #1B1E21;
+    --ink: #F5F3EE;
+    --ink-dim: #9CA3AA;
+    --accent: #C4622D;
+    --accent-text: #E08350;
+    --line: rgba(245,243,238,0.1);
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent-text); }
+  .top {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 0 24px;
+  }
+  .top a.back {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  .top a.back:hover { color: var(--accent-text); }
+  article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 120px 24px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .dek {
+    color: var(--ink-dim);
+    font-size: 17px;
+    max-width: 560px;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 21px;
+    margin: 44px 0 16px 0;
+  }
+  p { color: var(--ink-dim); font-size: 16px; margin-bottom: 14px; }
+  strong { color: var(--ink); font-weight: 600; }
+
+  .steps {
+    counter-reset: step;
+    margin: 28px 0 8px 0;
+  }
+  .step {
+    display: flex;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .step:last-child { border-bottom: 1px solid var(--line); }
+  .step .num {
+    counter-increment: step;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-text);
+    flex-shrink: 0;
+    width: 26px;
+  }
+  .step .num::before { content: counter(step); }
+  .step .txt p { margin-bottom: 0; }
+  .step .txt strong { display: block; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+
+  .callout {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 32px 0;
+  }
+  .callout p { margin-bottom: 0; color: var(--ink); font-size: 15px; }
+  .callout .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 8px;
+  }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  @media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+  .compare .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .compare .card .h {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .compare .card p { font-size: 14px; margin-bottom: 0; }
+</style>
+</head>
+<body>
+  <div class="top"><a class="back" href="../index.html#contact">← Back to portfolio</a></div>
+  <article>
+    <div class="eyebrow">Journal</div>
+    <h1>Where a Contact Form Submission Actually Goes</h1>
+    <p class="dek">A plain-language walkthrough of what happens after someone hits "Send message" on my site — written so I can explain it to anyone who asks, without hand-waving.</p>
+
+    <h2>The short version</h2>
+    <p>My website is just files — HTML, CSS, a bit of JavaScript. It has no server of its own, so it has no way to send an email by itself. Instead, the form hands the message off to <strong>Netlify</strong>, the same company already hosting the site, and Netlify does the actual delivering.</p>
+
+    <div class="callout">
+      <div class="label">One-line answer</div>
+      <p>"There's no backend I built myself — the form submits to Netlify, who I'm already hosting the site through, and they forward it to my email."</p>
+    </div>
+
+    <h2>The journey, step by step</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num"></div>
+        <div class="txt">
+          <strong>You type a message and hit Send</strong>
+          <p>The browser first checks the message locally — is a field empty, does the email look real? This happens instantly, before anything leaves your device, so obvious mistakes get caught right away.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="txt">
+          <strong>The submission travels to Netlify's servers</strong>
+          <p>Once it passes those checks, the browser sends the name, email, and message to Netlify — not to me directly, and not to any server I wrote or manage.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="txt">
+          <strong>Netlify stores it</strong>
+          <p>Every submission is logged in my Netlify dashboard, so there's always a record I can look back on, even before checking email.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="txt">
+          <strong>Netlify sends me an email</strong>
+          <p>Because I turned on an email notification for this form, Netlify's own mail system automatically forwards the details to my inbox — I never had to write or host any code that sends email.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="txt">
+          <strong>The sender sees a confirmation</strong>
+          <p>Meanwhile, back on the site, they see a friendly "Thanks — I'll be in touch soon" message, so they know it actually went somewhere instead of wondering if it worked.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Why this counts as "no server needed"</h2>
+    <p>Normally, handling a form submission and sending an email requires writing backend code — something that runs on a server, waits for form data, and calls an email service. I didn't build or pay for any of that. Netlify already provides it as part of hosting the site, triggered just by two small attributes in my HTML (<code>data-netlify="true"</code> and a matching form name). That's the whole trick: I'm borrowing infrastructure that already exists instead of building my own.</p>
+
+    <h2>What the JavaScript adds on top</h2>
+    <p>The delivery mechanism above happens either way. The JavaScript I added doesn't change where the message goes — it just makes the moment around sending it feel better:</p>
+
+    <div class="compare">
+      <div class="card">
+        <div class="h">Without the JS layer</div>
+        <p>Submitting reloads the whole page and dumps you on a generic Netlify success page — no feedback if you forgot a field, easy to bounce off confused.</p>
+      </div>
+      <div class="card">
+        <div class="h">With the JS layer</div>
+        <p>Empty fields or a bad email get caught instantly with a clear message, right on the page. A real send shows a warm confirmation without ever leaving the site.</p>
+      </div>
+    </div>
+
+    <p>In short: Netlify is the delivery system, and the script is just good manners layered on top of it.</p>
+  </article>
+</body>
+</html>
