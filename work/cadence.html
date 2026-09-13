@@ -1,1 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadence — Case Study | Halimah Yusuf</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #141B21;
+    --bg: #F7F5F2;
+    --main: #2E3A46;
+    --accent-fill: #C4622D;
+    --accent-text: #A3501F;
+    --white: #ffffff;
+    --border: #E3DFD8;
+    --muted: #6B6B6B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: var(--main); }
+  a { color: var(--accent-text); text-decoration: none; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
+  /* Nav */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px; max-width: 900px; margin: 0 auto;
+  }
+  nav .back { font-size: 14px; font-weight: 600; color: var(--main); }
+  nav .cta {
+    font-size: 13px; font-weight: 600; padding: 8px 18px;
+    border: 1px solid var(--main); border-radius: 8px; color: var(--main);
+  }
+
+  /* Hero */
+  .hero { padding: 40px 0 60px; text-align: center; }
+  .hero .kicker {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--accent-text); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 40px; line-height: 1.15; max-width: 700px; margin: 0 auto 16px; }
+  .hero .claim {
+    font-size: 17px; color: var(--muted); max-width: 560px; margin: 0 auto 40px;
+  }
+  .hero-visual {
+    max-width: 400px; margin: 0 auto;
+    background: var(--white); border-radius: 24px; border: 1px solid var(--border);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    padding: 20px;
+  }
+  .hero-visual img { width: 100%; display: block; border-radius: 12px; }
+  .img-slot {
+    background: repeating-linear-gradient(45deg, #f0ede8, #f0ede8 10px, #e8e4dd 10px, #e8e4dd 20px);
+    border: 2px dashed #c9c2b6; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #8a8272; font-size: 13px; text-align: center; padding: 20px;
+    min-height: 240px;
+  }
+
+  /* Sections */
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  section:first-of-type { border-top: none; }
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--accent-text); text-transform: uppercase; margin-bottom: 10px;
+  }
+  section h2 { font-size: 28px; margin-bottom: 20px; }
+  section p { font-size: 16px; color: #3a3a3a; max-width: 700px; }
+  .caption {
+    font-size: 13px; color: var(--muted); text-align: center; margin-top: 10px;
+  }
+
+  /* Persona cards */
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .persona-card {
+    background: var(--white); border-radius: 14px; border: 1px solid var(--border);
+    padding: 22px;
+  }
+  .persona-card h3 { font-size: 18px; margin-bottom: 6px; }
+  .persona-card .role { font-size: 13px; color: var(--accent-text); font-weight: 600; margin-bottom: 12px; }
+  .persona-card p { font-size: 14px; color: #444; }
+  .persona-card .quote {
+    margin-top: 14px; font-size: 14px; font-style: italic; color: var(--main);
+    border-left: 3px solid var(--accent-fill); padding-left: 12px;
+  }
+
+  /* Findings list */
+  .findings { list-style: none; margin-top: 20px; }
+  .findings li {
+    display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border);
+    font-size: 15px; color: #333;
+  }
+  .findings li:last-child { border-bottom: none; }
+  .findings .num {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent-fill); color: white; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Two-visual row */
+  .visual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .visual-row .img-slot { min-height: 200px; }
+
+  /* Screen grid */
+  .screen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+  .screen-grid .img-slot { min-height: 160px; font-size: 11px; }
+
+  /* Pattern cards */
+  .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+  .pattern-card {
+    background: var(--white); border-radius: 10px; border: 1px solid var(--border);
+    padding: 16px;
+  }
+  .pattern-tag {
+    display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px;
+    border-radius: 100px; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .pattern-tag.gov { background: #E7E9F5; color: #3d4285; }
+  .pattern-tag.trust { background: #E6F2E8; color: #2c6b3a; }
+  .pattern-card h3 { font-size: 15px; }
+
+  /* Before/after */
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .before-after .label { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
+
+  /* AI Workflow */
+  .ai-workflow-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .ai-block {
+    background: var(--white); border-radius: 12px; border: 1px solid var(--border);
+    padding: 18px;
+  }
+  .ai-block .label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
+  .ai-block.helped .label { color: #2c6b3a; }
+  .ai-block.failed .label { color: var(--accent-text); }
+  .ai-block.human .label { color: var(--main); }
+  .ai-block p { font-size: 13.5px; color: #444; }
+  .tools-strip { font-size: 14px; color: var(--main); font-weight: 600; margin-top: 16px; }
+
+  /* Defend / Different */
+  .defend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .defend-card {
+    border-radius: 14px; padding: 24px;
+  }
+  .defend-card.defend { background: #F2EDE3; border: 1px solid #D9CDB5; }
+  .defend-card.different { background: #FBEDE4; border: 1px solid #EAC9B3; }
+  .defend-card .tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--accent-text); margin-bottom: 10px;
+  }
+  .defend-card h3 { font-size: 16px; margin-bottom: 10px; }
+  .defend-card p { font-size: 14px; color: #3a3a3a; }
+
+  /* Outcomes */
+  .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+  .stat {
+    text-align: center; background: var(--white); border-radius: 12px;
+    border: 1px solid var(--border); padding: 24px 12px;
+  }
+  .stat .number { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-fill); }
+  .stat .desc { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+
+  /* Closing CTA */
+  .closing { text-align: center; padding: 60px 0 80px; }
+  .closing h2 { font-size: 26px; margin-bottom: 12px; }
+  .closing p { max-width: 500px; margin: 0 auto 28px; }
+  .closing-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  }
+  .btn.primary { background: var(--main); color: white; }
+  .btn.secondary { border: 1px solid var(--main); color: var(--main); }
+
+  footer { text-align: center; padding: 30px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border); }
+
+  @media (max-width: 700px) {
+    .persona-grid, .visual-row, .before-after, .defend-grid { grid-template-columns: 1fr; }
+    .screen-grid { grid-template-columns: repeat(2, 1fr); }
+    .pattern-grid, .ai-workflow-grid { grid-template-columns: 1fr; }
+    .stats-strip { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="back">← Halimah.</a>
+  <a href="#outcomes" class="cta">Outcomes ↓</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero wrap">
+  <div class="kicker">Case Study — AI · Scheduling · Design Systems</div>
+  <h1>Cadence — teaching an AI scheduling assistant to explain itself before it acts.</h1>
+  <p class="claim">"When an AI changes your calendar, it should have to explain itself first — that's how it earns your trust."</p>
+  <div class="hero-visual">
+    <!-- REPLACE: export of Recommendation Review screen, phone-mockup style, matching summary-deck cover treatment -->
+    <div class="img-slot">hero-recommendation-review.png<br>(phone mockup, ~750×1624px @2x)</div>
+  </div>
+  <p class="caption">The Recommendation Review screen — the core interaction this entire case study is built to prove.</p>
+</header>
+
+<!-- PROBLEM & USER -->
+<section class="wrap">
+  <div class="section-label">Problem & User</div>
+  <h2>Two real users want opposite things from the same feature.</h2>
+  <p>Maya wants to see every reason before she'll trust an AI-suggested change. Sarah wants the suggestion to just be right, in under five seconds, with no reading required. Cadence's core design problem was building one recommendation-review screen that genuinely serves both — without pretending the tension doesn't exist.</p>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <h3>Maya</h3>
+      <div class="role">Senior PM · Data-Driven Skeptic</div>
+      <p>Has been burned by cycle-tracking apps that flatten users into generic rules. Refuses to outsource decisions to a black box.</p>
+      <div class="quote">"Show me why. If I can see the reasoning, I can decide if I agree with it."</div>
+    </div>
+    <div class="persona-card">
+      <h3>Sarah</h3>
+      <div class="role">Marketing Director · Friction-Averse</div>
+      <p>Time-poor parent, zero bandwidth for explanations. Needs the suggestion to be correct, not justified.</p>
+      <div class="quote">"I trust it more if it's right consistently — not because it gave me a paragraph of reasoning."</div>
+    </div>
+  </div>
+  <!-- REPLACE: cropped Persona Canvas, Maya + Sarah cards only -->
+  <div class="img-slot" style="margin-top: 20px; min-height: 180px;">persona-canvas-crop.png</div>
+  <p class="caption">Persona canvas, Maya and Sarah — the two poles this design had to hold at once.</p>
+</section>
+
+<!-- RESEARCH FINDINGS -->
+<section class="wrap">
+  <div class="section-label">Research Findings</div>
+  <h2>What the research actually said.</h2>
+  <ul class="findings">
+    <li><span class="num">1</span> Cycle-syncing apps treat cycle-awareness as a bolt-on feature, not a system — none rethink the tool around the user's rhythm.</li>
+    <li><span class="num">2</span> Users consistently distrust predictions based on population averages rather than their own data.</li>
+    <li><span class="num">3</span> Trust breaks down less over "AI" itself and more over rigid systems that expect users to behave consistently — adaptive systems earn more patience.</li>
+    <li><span class="num">4</span> No existing competitor bridges health-tracking rigor with genuine productivity usefulness — that gap became the opening.</li>
+  </ul>
+</section>
+
+<!-- IA & FLOW DECISIONS -->
+<section class="wrap">
+  <div class="section-label">IA & Flow Decisions</div>
+  <h2>Reasoning sits beside the decision, not behind it.</h2>
+  <p>The single structural decision the whole project hangs on: the "Why this recommendation?" link is a sibling to Approve/Edit/Decline in the information architecture — reachable before any action is taken, never unlocked only after.</p>
+  <div class="visual-row">
+    <div>
+      <!-- REPLACE: cropped IA diagram, Core Decision Loop + Trust Layer groups -->
+      <div class="img-slot">ia-diagram-crop.png</div>
+      <p class="caption">IA — Trust Layer sits parallel to the Core Decision Loop, not downstream of it.</p>
+    </div>
+    <div>
+      <!-- REPLACE: Flow 1 (Primary Task) diagram -->
+      <div class="img-slot">flow-primary-task.png</div>
+      <p class="caption">Primary task flow — the reasoning branch is drawn at the same level as the three actions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM & SCREENS -->
+<section class="wrap">
+  <div class="section-label">System & Screens</div>
+  <h2>A token-based system, not a one-off UI.</h2>
+  <p>16 components — Button, Input, Card, Modal, Toggle, Phase Badge, Confidence Tag, Reasoning Disclosure, Recommendation Card, and a custom icon set — all bound to design tokens, not hardcoded values, so a single fix (like a contrast failure) propagates everywhere it's used.</p>
+  <!-- REPLACE: small crop of Button/Input/Card/Toggle from the Design System page -->
+  <div class="img-slot" style="min-height: 140px;">component-snapshot.png</div>
+  <p class="caption">A slice of the component library — every screen below is built entirely from pieces like these.</p>
+
+  <div class="screen-grid">
+    <div class="img-slot">home.png</div>
+    <div class="img-slot">recommendation-review.png</div>
+    <div class="img-slot">reasoning-artifact.png</div>
+    <div class="img-slot">settings.png</div>
+  </div>
+  <p class="caption">Landing, Recommendation Review, Reasoning Artifact, Settings — 4 of 38 screens in the full prototype.</p>
+</section>
+
+<!-- AI-PRODUCT PATTERNS -->
+<section class="wrap">
+  <div class="section-label">AI-Product Patterns</div>
+  <h2>Six named patterns, not improvised UI.</h2>
+  <p>Every AI-facing element in Cadence maps to a documented interaction pattern — three "governors" that keep the AI in check, three "trust builders" that explain its reasoning.</p>
+  <div class="pattern-grid">
+    <div class="pattern-card"><span class="pattern-tag gov">Governor</span><h3>Action Plan</h3></div>
+    <div class="pattern-card"><span class="pattern-tag gov">Governor</span><h3>Approval Workflow</h3></div>
+    <div class="pattern-card"><span class="pattern-tag gov">Governor</span><h3>Undo</h3></div>
+    <div class="pattern-card"><span class="pattern-tag trust">Trust Builder</span><h3>Disclosure</h3></div>
+    <div class="pattern-card"><span class="pattern-tag trust">Trust Builder</span><h3>Confidence</h3></div>
+    <div class="pattern-card"><span class="pattern-tag trust">Trust Builder</span><h3>Caveat</h3></div>
+  </div>
+</section>
+
+<!-- USABILITY TESTING + ITERATIONS -->
+<section class="wrap">
+  <div class="section-label">Usability Testing + Iterations</div>
+  <h2>Tested with 4 sessions. Fixed what actually broke.</h2>
+  <p>One live moderated walkthrough plus three persona-based scripted sessions surfaced 11 ranked findings. The most severe: when the AI's own reasoning failed to load, the recommendation stayed fully actionable anyway — directly undermining the product's central promise.</p>
+  <div class="before-after">
+    <div>
+      <div class="label">Before</div>
+      <!-- REPLACE: reasoning-error before fix -->
+      <div class="img-slot">reasoning-error-before.png</div>
+    </div>
+    <div>
+      <div class="label">After</div>
+      <!-- REPLACE: reasoning-error after fix, with on-hold badge -->
+      <div class="img-slot">reasoning-error-after.png</div>
+    </div>
+  </div>
+  <p class="caption">Fixed: the recommendation is now marked "on hold" and its actions disabled until reasoning loads.</p>
+</section>
+
+<!-- AI WORKFLOW -->
+<section class="wrap">
+  <div class="section-label">AI Workflow</div>
+  <h2>Where AI helped, where it failed, what stayed human.</h2>
+  <div class="tools-strip">Tools: Claude (design collaborator + direct Figma plugin scripting) · Figma AI Draft</div>
+  <div class="ai-workflow-grid">
+    <div class="ai-block helped">
+      <div class="label">Helped</div>
+      <p>Component-accurate screens generated fast once prompts locked exact hex values, radii, and copy. Direct plugin scripting let fixes propagate through real token bindings, not per-screen patches.</p>
+    </div>
+    <div class="ai-block failed">
+      <div class="label">Failed</div>
+      <p>Left unconstrained, it defaulted toward more — a stats dashboard, a batch carousel, a nav bar treating the AI as a separate feature. A style-reference prompt once pulled in pill buttons despite an explicit "don't change components" instruction.</p>
+    </div>
+    <div class="ai-block human">
+      <div class="label">Stayed human</div>
+      <p>The proof statement. The button-hierarchy reversal. Where reasoning sits structurally. Which usability findings were worth fixing versus logging. AI executed fast — it never decided what mattered.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DECISION DEFENDED / DIFFERENT -->
+<section class="wrap">
+  <div class="section-label">Looking Back</div>
+  <h2>One decision I'd defend. One I'd change.</h2>
+  <div class="defend-grid">
+    <div class="defend-card defend">
+      <div class="tag">Decision I'd Defend</div>
+      <h3>Reasoning as a sibling, never downstream</h3>
+      <p>Testing validated it directly — one participant treated opening the reasoning as non-negotiable before deciding anything; another discovered it completely unprompted. Placing it one tap deeper would have quietly broken the entire thesis.</p>
+    </div>
+    <div class="defend-card different">
+      <div class="tag">Thing I'd Do Differently</div>
+      <h3>Design for the user who never opens it</h3>
+      <p>Testing found a real persona type never discovers "Why this recommendation?" at all — and said she likely never would. An unopened trust feature provides zero trust. I'd prototype a lighter-weight trust signal for fast-moving users specifically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="wrap" id="outcomes">
+  <div class="section-label">Outcomes</div>
+  <h2>8 weeks, research through hand-off.</h2>
+  <div class="stats-strip">
+    <div class="stat"><div class="number">38</div><div class="desc">screens, wired end-to-end, 0 broken links</div></div>
+    <div class="stat"><div class="number">16</div><div class="desc">components, token-bound, accessibility-audited</div></div>
+    <div class="stat"><div class="number">3</div><div class="desc">real WCAG failures found and fixed at the token level</div></div>
+    <div class="stat"><div class="number">4</div><div class="desc">usability sessions → 11 findings → top 3 fixed</div></div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<div class="closing wrap">
+  <h2>Want to see the full prototype?</h2>
+  <p>Every screen, flow, and decision documented above lives in the Figma file — click-through prototype included.</p>
+  <div class="closing-btns">
+    <a href="https://www.figma.com/proto/h3bfHAo9Ata4NaAkdjG4pB/CAPSTONE---CADENCE?node-id=4824-560&p=f&t=T777oC1lv9P4YwIq-0&scaling=scale-down&content-scaling=fixed&page-id=4311%3A3&starting-point-node-id=4824%3A560&show-proto-sidebar=1" class="btn primary" target="_blank" rel="noopener">View the Figma prototype →</a>
+    <a href="/#contact" class="btn secondary">Get in touch</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Halimah Yusuf. <a href="/">Back to portfolio</a>
+</footer>
+
+</body>
+</html>
